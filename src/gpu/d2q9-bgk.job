@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#SBATCH --job-name d2q9-bgk4
+#SBATCH --output d2q9-bgk4.output
+#SBATCH --partition gpu_veryshort
+#SBATCH --gres=gpu:2
+#SBATCH --nodes 2
+#SBATCH --ntasks-per-node 2
+#SBATCH --cpus-per-task 1
+#SBATCH --time 00:20:00
+
+echo Running on host `hostname`
+echo Time is `date`
+echo Directory is `pwd`
+echo Slurm job ID is $SLURM_JOB_ID
+echo This job runs on the following machines:
+echo `echo $SLURM_JOB_NODELIST | uniq`
+
+mpirun -np 4 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
